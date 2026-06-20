@@ -1,0 +1,16 @@
+class Solution:
+    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
+        tickets.sort()
+        adj = defaultdict(list)
+        for src, dst in tickets[::-1]:
+            adj[src].append(dst)
+
+        res = []
+        def dfs(src):
+            while adj[src]:
+                dst = adj[src].pop()
+                dfs(dst)
+            res.append(src)
+
+        dfs('JFK')
+        return res[::-1]
